@@ -1,6 +1,7 @@
 // src/TareasApp.jsx
 import { useState } from "react";
 import TareaLista from "./components/TareaLista";
+import FormularioTarea from "./components/FormularioTarea";
 
 function TareasApp() {
   const [tareas, setTareas] = useState([
@@ -17,7 +18,17 @@ function TareasApp() {
     );
   };
 
-  return <TareaLista tareas={tareas} onAlternar={alternarTarea} />;
+  const agregarTarea = (titulo) => {
+    const nuevaTarea = { id: Date.now(), titulo, completada: false };
+    setTareas([...tareas, nuevaTarea]);
+  };
+
+  return (
+    <>
+      <FormularioTarea onAgregar={agregarTarea} />
+      <TareaLista tareas={tareas} onAlternar={alternarTarea} />
+    </>
+  );
 }
 
 export default TareasApp;
